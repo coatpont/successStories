@@ -638,6 +638,13 @@ function loadFooter(footer) {
   loadBlock(footerBlock);
 }
 
+function loadLeftmenu(leftmenu) {
+  const leftmenuBlock = buildBlock('leftmenu', '');
+  leftmenu.append(leftmenuBlock);
+  decorateBlock(leftmenuBlock);
+  loadBlock(leftmenuBlock);
+}
+
 /**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
@@ -662,6 +669,30 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
+
+  const mainrow = document.createElement("div");
+  mainrow.setAttribute("class","row");
+
+  const maincol = document.createElement("div");
+  maincol.setAttribute("class","container-fluid");
+
+  const mainleft = document.createElement("div");
+  mainleft.setAttribute("class","col-md-2");
+
+  const mainright = document.createElement("div");
+  mainright.setAttribute("class","col-md-10");
+
+  maincol.appendChild(mainrow);
+
+  mainrow.appendChild(mainleft);
+  mainrow.appendChild(mainright);
+
+  main.insertBefore(maincol,null);
+
+  mainleft.innerHTML='<div class="card"><div class="card-header">Resources</div><div class="card-body"><leftmenu></leftmenu></div></div>';
+
+  mainright.appendChild(main.firstElementChild);
+
 }
 
 /**
@@ -689,9 +720,10 @@ async function loadLazy(doc) {
 
   loadHeader(doc.querySelector('header'));
   loadFooter(doc.querySelector('footer'));
+  loadLeftmenu(doc.querySelector('leftmenu'));
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
-  addFavIcon(`${window.hlx.codeBasePath}/styles/favicon.svg`);
+  addFavIcon(`${window.hlx.codeBasePath}/styles/favicon.ico`);
   sampleRUM('lazy');
   sampleRUM.observe(main.querySelectorAll('div[data-block-name]'));
   sampleRUM.observe(main.querySelectorAll('picture > img'));
