@@ -689,7 +689,7 @@ export function decorateMain(main) {
 
   main.insertBefore(maincol,null);
 
-  mainleft.innerHTML='<div class="card"><div class="card-header">Resources</div><div class="card-body"><leftmenu></leftmenu></div></div>';
+  mainleft.innerHTML='<div class="card mb-2"><div class="card-header">Resources</div><div class="card-body"><leftmenu></leftmenu></div></div>';
 
   mainright.appendChild(main.firstElementChild);
 
