@@ -18,4 +18,24 @@ export default async function decorate(block) {
     form.innerHTML = html;
     block.append(form);
   }
+
+  $("#form-question").submit(function(e){
+
+    var form = $("#form-question");
+    var url = form.attr('action');
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: form.serialize(),
+        success: function(data) {
+          // alert("Form Submited Successfully");
+        },
+        error: function(data) {
+          // alert("some Error");
+        }
+    });
+    window.location.href = '/contacts/thank-you';
+    return false;
+  });
+
 }
