@@ -1,4 +1,4 @@
-import { readBlockConfig, decorateIcons } from '../../scripts/scripts.js';
+import { readBlockConfig } from '../../scripts/scripts.js';
 
 /**
  * decorates the header, mainly the nav
@@ -9,9 +9,7 @@ export default async function decorate(block) {
   const cfg = readBlockConfig(block);
   block.textContent = '';
 
-  // fetch nav content
-  const navPath = cfg.nav || '/nav';
-  const resp = await fetch(`/blocks/contact/contact.html`);
+  const resp = await fetch('/blocks/contact/contact.html');
   if (resp.ok) {
     const html = await resp.text();
     const form = document.createElement('div');
@@ -19,12 +17,12 @@ export default async function decorate(block) {
     block.append(form);
   }
 
-  $("#form-question").submit(function(e){
+  $("#form-question").submit(function(){
 
-    var form = $("#form-question");
+    var form = $('#form-question');
     var url = form.attr('action');
     $.ajax({
-        type: "POST",
+        type: 'POST',
         url: url,
         data: form.serialize(),
         success: function(data) {
