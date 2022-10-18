@@ -1,12 +1,9 @@
-import { readBlockConfig } from '../../scripts/scripts.js';
-
 /**
  * decorates the header, mainly the nav
  * @param {Element} block The header block element
  */
 
 export default async function decorate(block) {
-  const cfg = readBlockConfig(block);
   block.textContent = '';
 
   const resp = await fetch('/blocks/contact/contact.html');
@@ -17,23 +14,21 @@ export default async function decorate(block) {
     block.append(form);
   }
 
-  $("#form-question").submit(function(){
-
-    var form = $('#form-question');
-    var url = form.attr('action');
+  $('#form-question').submit(function () {
+    const form = $('#form-question');
+    const url = form.attr('action');
     $.ajax({
-        type: 'POST',
-        url: url,
-        data: form.serialize(),
-        success: function(data) {
-          // alert("Form Submited Successfully");
-        },
-        error: function(data) {
-          // alert("some Error");
-        }
+      type: 'POST',
+      url: url,
+      data: form.serialize(),
+      success: function () {
+        // alert("Form Submited Successfully");
+      },
+      error: function () {
+        // alert("some Error");
+      }
     });
     window.location.href = '/contacts/thank-you';
     return false;
   });
-
 }
