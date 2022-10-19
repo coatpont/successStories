@@ -14,21 +14,20 @@ export default async function decorate(block) {
     block.append(form);
   }
 
-  $('#form-question').submit(function () {
+  $('#form-question').submit(() => {
     const form = $('#form-question');
-    const url = form.attr('action');
+    const posturl = form.attr('action');
     $.ajax({
       type: 'POST',
-      url: url,
+      url: posturl,
       data: form.serialize(),
-      success: function () {
-        // alert("Form Submited Successfully");
+      success: function successform() {
+        window.location.href = '/contacts/thank-you';
       },
-      error: function () {
-        // alert("some Error");
-      }
+      error: function errorform() {
+        window.location.href = '/';
+      },
     });
-    window.location.href = '/contacts/thank-you';
     return false;
   });
 }
