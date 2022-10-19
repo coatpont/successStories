@@ -1,5 +1,5 @@
 # AEM CS Release Management
-This is a microsite dedicated to AEM Cloud Sercice Release Management, with a no custom CSS policy
+This is a microsite dedicated to AEM Cloud Sercice Release Management, with a no custom CSS policy, built with Helix technology.
 
 ## Environments
 - Preview: https://main--successstories--coatpont.hlx.page/
