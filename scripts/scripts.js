@@ -670,29 +670,28 @@ export function decorateMain(main) {
   decorateSections(main);
   decorateBlocks(main);
 
-  const mainrow = document.createElement("div");
-  mainrow.setAttribute("class","row");
+  const mainrow = document.createElement('div');
+  mainrow.setAttribute('class', 'row');
 
-  const maincol = document.createElement("div");
-  maincol.setAttribute("class","container-fluid");
+  const maincol = document.createElement('div');
+  maincol.setAttribute('class', 'container-fluid');
 
-  const mainleft = document.createElement("div");
-  mainleft.setAttribute("class","col-md-2");
+  const mainleft = document.createElement('div');
+  mainleft.setAttribute('class', 'col-md-2');
 
-  const mainright = document.createElement("div");
-  mainright.setAttribute("class","col-md-10");
+  const mainright = document.createElement('div');
+  mainright.setAttribute('class', 'col-md-10');
 
   maincol.appendChild(mainrow);
 
   mainrow.appendChild(mainleft);
   mainrow.appendChild(mainright);
 
-  main.insertBefore(maincol,null);
+  main.insertBefore(maincol, null);
 
-  mainleft.innerHTML='<div class="card mb-2"><div class="card-header">Resources</div><div class="card-body"><leftmenu></leftmenu></div></div>';
+  mainleft.innerHTML = '<div class="card mb-2"><div class="card-header">Resources</div><div class="card-body"><leftmenu></leftmenu></div></div>';
 
   mainright.appendChild(main.firstElementChild);
-
 }
 
 /**
@@ -738,9 +737,3 @@ function loadDelayed() {
   window.setTimeout(() => import('./delayed.js'), 3000);
   // load anything that can be postponed to the latest here
 }
-
-/* Global tweaks... */
-$(document).ready(function(){
-
-})
-
