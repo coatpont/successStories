@@ -737,3 +737,36 @@ function loadDelayed() {
   window.setTimeout(() => import('./delayed.js'), 3000);
   // load anything that can be postponed to the latest here
 }
+
+/**
+ * setup the search feature with typeahead
+
+  var searchSource = new Bloodhound({
+  datumTokenizer: Bloodhound.tokenizers.whitespace,
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+    remote: {
+    url: '/pages/sg.php?type=prenom&query=%QUERY',
+    wildcard: '%QUERY'
+  }
+});
+
+$('#searchInput').typeahead(
+    {
+        hint: true,
+        highlight: true,
+        minLength: 1,
+    },{
+        displayKey: 'term',
+        source: searchSource,
+        limit: 10,
+        templates: {
+            empty: ['<div>&nbsp;No result!</div>'].join('\n'),
+            suggestion: Handlebars.compile('<div>{{term}}</div>')
+        }
+    }
+)
+.on('typeahead:select', function(ev,selection) {
+    window.location.href = selection.link;
+})
+
+      */

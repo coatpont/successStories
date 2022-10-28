@@ -55,6 +55,29 @@ export default async function decorate(block) {
     brand.innerHTML = 'AEM Cloud Service';
     container.insertBefore(brand, container.children[0]);
 
+    // add the search form
+    const search = document.createElement('form');
+    search.setAttribute('class', 'd-flex');
+    nav.appendChild(search);
+
+    const searchInput = document.createElement('input');
+    searchInput.setAttribute('class', 'form-control me-2');
+    searchInput.setAttribute('type', 'search');
+    searchInput.setAttribute('id', 'searchInput');
+    searchInput.setAttribute('name', 'searchInput');
+    searchInput.setAttribute('placeholder', 'Search');
+    searchInput.setAttribute('autocomplete', 'off');
+    searchInput.setAttribute('required', '');
+
+    search.appendChild(searchInput);
+
+    const searchButton = document.createElement('button');
+    searchButton.setAttribute('class', 'me-2 btn btn-outline-light');
+    searchButton.setAttribute('style', 'margin-left:0.5rem');
+    searchButton.setAttribute('type', 'submit');
+    searchButton.innerHTML = 'Search';
+    search.append(searchButton);
+
     block.append(nav);
   }
 }
