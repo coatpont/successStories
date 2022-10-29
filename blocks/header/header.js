@@ -79,5 +79,54 @@ export default async function decorate(block) {
     search.append(searchButton);
 
     block.append(nav);
+
+    /**
+     * setup the search feature with typeahead
+    */
+
+    /** Fetching the index file... */
+    const index = await fetch('/query-index.json');
+    if (index.ok) {
+      const indexhtml = await index.text();
+      const indexjson = JSON.parse(indexhtml);
+      const searchjson = [];
+      let i = 1;
+      indexjson.data.forEach((item) => {
+        searchjson.push({
+          id: i++,
+          path: item.path,
+          title: item.title,
+          description: item.description,
+        });
+      });
+
+      /* eslint-disable no-console */
+      console.log(JSON.stringify(searchjson));
+
+      /* eslint-disable no-undef */
+      var searchSource = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.whitespace,
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        identify: (obj) => obj.id,
+        local: searchjson,
+      });
+
+      /* eslint-disable prefer-arrow-callback */
+      $('#searchInput').typeahead({
+        hint: false,
+        highlight: true,
+        minLength: 1,
+      }, {
+        displayKey: 'title',
+        source: searchSource,
+        limit: 10,
+        templates: {
+          empty: ['<div>&nbsp;No result!</div>'].join('\n'),
+          suggestion: Handlebars.compile('<div>{{title}}</br><span class=small>{{description}}</span></div>'),
+        },
+      }).on('typeahead:select', function selectvalue(ev, selection) {
+        window.location.href = selection.path;
+      });
+    }
   }
 }
