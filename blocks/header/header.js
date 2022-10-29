@@ -90,22 +90,18 @@ export default async function decorate(block) {
       const indexhtml = await index.text();
       const indexjson = JSON.parse(indexhtml);
       const searchjson = [];
-      let i = 1;
+      /* eslint-disable vars-on-top */
+      /* eslint-disable no-var */
+      var pathmap = [];
       indexjson.data.forEach((item) => {
-        searchjson.push({
-          id: i,
-          title: item.title,
-          path: item.path,
-          description: item.description,
-        });
-        i += 1;
+        searchjson.push(item.title);
+        pathmap[item.title] = item.path;
       });
 
       /* eslint-disable no-undef */
       const searchSource = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.whitespace,
         queryTokenizer: Bloodhound.tokenizers.whitespace,
-        identify: (obj) => obj.id,
         local: searchjson,
       });
 
@@ -115,15 +111,10 @@ export default async function decorate(block) {
         highlight: true,
         minLength: 1,
       }, {
-        displayKey: 'title',
         source: searchSource,
         limit: 10,
-        templates: {
-          empty: ['<div>&nbsp;No result!</div>'].join('\n'),
-          suggestion: Handlebars.compile('<div>{{title}}</br><span class=small>{{description}}</span></div>'),
-        },
       }).on('typeahead:select', function selectvalue(ev, selection) {
-        window.location.href = selection.path;
+        window.location.href = pathmap[selection];
       });
     }
   }
