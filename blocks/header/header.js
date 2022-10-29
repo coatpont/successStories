@@ -93,18 +93,16 @@ export default async function decorate(block) {
       let i = 1;
       indexjson.data.forEach((item) => {
         searchjson.push({
-          id: i++,
-          path: item.path,
+          id: i,
           title: item.title,
+          path: item.path,
           description: item.description,
         });
+        i += 1;
       });
 
-      /* eslint-disable no-console */
-      console.log(JSON.stringify(searchjson));
-
       /* eslint-disable no-undef */
-      var searchSource = new Bloodhound({
+      const searchSource = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.whitespace,
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         identify: (obj) => obj.id,
