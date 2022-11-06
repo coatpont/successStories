@@ -25,17 +25,46 @@ export default async function decorate(block) {
     nav.appendChild(container);
     container.innerHTML = html;
     container.children[0].setAttribute('class', 'collapse navbar-collapse');
-    container.children[0].setAttribute('id', 'navbarSupportedContent');
+    container.children[0].setAttribute('id', 'navbarNavDarkDropdown');
     container.children[0].children[0].setAttribute('class', 'navbar-nav me-auto mb-2 mb-lg-0');
 
     // decorate the list
     const children = container.children[0].children[0].childNodes;
     children.forEach((item) => {
-      try {
-        item.setAttribute('class', 'nav-item');
-        item.children[0].setAttribute('class', 'nav-link');
-      } catch {
-        // console.log('error');
+      if (item.nodeName === 'LI') {
+        const subchildren = item.childNodes;
+        // do we have a dropdown?
+        if (subchildren[0].nodeName === 'A') {
+          item.setAttribute('class', 'nav-item');
+          item.children[0].setAttribute('class', 'nav-link');
+        }
+        if (subchildren.length > 1 && subchildren[1].nodeName === 'UL') {
+          item.setAttribute('class', 'nav-item dropdown');
+          const label = item.childNodes[0].textContent;
+          item.childNodes[0].remove();
+
+          // Decorate the line items
+          item.childNodes[0].setAttribute('class', 'dropdown-menu');
+          item.childNodes[0].setAttribute('aria-labelledby', 'navbarDarkDropdownMenuLink');
+
+          const listitems = item.childNodes[0].childNodes;
+          listitems.forEach((dropitem) => {
+            if (dropitem.nodeName === 'LI') {
+              dropitem.firstChild.setAttribute('class', 'dropdown-item');
+            }
+          });
+
+          // Insert the button
+          const dropdown = document.createElement('a');
+          dropdown.setAttribute('class', 'nav-link dropdown-toggle');
+          dropdown.setAttribute('href', '#');
+          dropdown.setAttribute('id', 'navbarDarkDropdownMenuLink');
+          dropdown.setAttribute('role', 'button');
+          dropdown.setAttribute('data-bs-toggle', 'dropdown');
+          dropdown.setAttribute('aria-expanded', 'false');
+          dropdown.innerHTML = label;
+          item.insertBefore(dropdown, item.firstChild);
+        }
       }
     });
 
@@ -51,7 +80,8 @@ export default async function decorate(block) {
     // add the brand link
     const brand = document.createElement('a');
     brand.setAttribute('class', 'navbar-brand');
-    brand.setAttribute('href', 'https://www.adobe.com');
+    brand.setAttribute('href', 'https://experienceleague.adobe.com/docs/experience-manager-learn/cloud-service/overview.html');
+    brand.setAttribute('target', '_blank');
     brand.innerHTML = 'AEM Cloud Service';
     container.insertBefore(brand, container.children[0]);
 

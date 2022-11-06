@@ -1,6 +1,8 @@
 helix-importer-ui
 bootstrap.js
 bootstrap.min.js
+bootstrap.bundle.js
+bootstrap.bundle.min.js
 typeahead.bundle.js
 typeahead.bundle.min.js
 typeahead.jquery.js
