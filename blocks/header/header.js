@@ -88,8 +88,7 @@ export default async function decorate(block) {
     // add the search form
     const search = document.createElement('form');
     search.setAttribute('class', 'd-flex');
-    nav.appendChild(search);
-
+    container.children[2].appendChild(search);
     const searchInput = document.createElement('input');
     searchInput.setAttribute('class', 'form-control me-2');
     searchInput.setAttribute('type', 'search');
