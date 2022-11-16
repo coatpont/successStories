@@ -73,7 +73,7 @@ export default async function decorate(block) {
     hamburger.setAttribute('type', 'button');
     hamburger.setAttribute('class', 'navbar-toggler');
     hamburger.setAttribute('data-bs-toggle', 'collapse');
-    hamburger.setAttribute('data-bs-target', '#navbarSupportedContent');
+    hamburger.setAttribute('data-bs-target', '#navbarNavDarkDropdown');
     hamburger.innerHTML = '<span class="navbar-toggler-icon"></span>';
     container.insertBefore(hamburger, container.children[0]);
 
